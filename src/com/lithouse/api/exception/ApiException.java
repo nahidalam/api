@@ -44,6 +44,11 @@ public class ApiException extends Exception {
 		this.code = code;		
 	}
 	
+	public ApiException ( ErrorCode code, String param, String message ) {
+		this.code = code;
+		this.message = "'" + param + "' " + message;
+	}
+	
 	public ApiException ( ErrorCode code, String message ) {
 		this.code = code;
 		this.message = message;

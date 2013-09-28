@@ -21,7 +21,7 @@ import com.lithouse.api.exception.ApiException.ErrorCode;
 
 
 
-public class DeveloperResource extends BaseResource {
+public class DeveloperResource extends BaseResource < GenericDao > {
 	
 	@Inject	
 	public DeveloperResource ( RequestItem requestItem,
@@ -44,8 +44,15 @@ public class DeveloperResource extends BaseResource {
 	
 	@GET
 	@BuildResponse		
-	public DataBean getDeveloper ( ) throws ApiException {
-		return new DataBean ( getExistingDeveloper ( ) );
+	public DataBean < DeveloperItem > getDeveloper ( ) throws ApiException {
+		return new DataBean < DeveloperItem > ( getExistingDeveloper ( ) );
 	}
 
+//	@PUT
+//	@BuildResponse
+//	@Consumes ( MediaType.APPLICATION_JSON )
+//	public DataBean updateDeveloper ( ) throws ApiException {
+//		DeveloperItem existingDeveloper = getExistingDeveloper ( );
+//		return new DataBean (  );
+//	}
 }
