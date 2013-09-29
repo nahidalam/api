@@ -21,7 +21,7 @@ import com.lithouse.common.model.DeviceItem;
 
 
 @Path ( ApiCallerConstants.Path.devices 
-		+ "/{" + ApiCallerConstants.PathParameters.deviceGroupId + "}" )
+		+ "/{" + ApiCallerConstants.PathParameters.groupId + "}" )
 public class DevicesResource extends BaseResource < DeviceDao > {
 			
 	@Inject	
@@ -46,8 +46,8 @@ public class DevicesResource extends BaseResource < DeviceDao > {
 	@Authenticate
 	@POST
 	public DataBean < DeviceItem > createDevices ( 
-								@PathParam ( ApiCallerConstants.PathParameters.deviceGroupId ) 
-								String deviceGroupId,
+								@PathParam ( ApiCallerConstants.PathParameters.groupId ) 
+								String groupId,
 								@QueryParam ( ApiCallerConstants.QueryParameters.count )
 								String count ) throws ApiException {
 		int requestedDeviceCount = getRequestedDeviceCount ( count );
@@ -58,7 +58,7 @@ public class DevicesResource extends BaseResource < DeviceDao > {
 		try {
 			return new DataBean < DeviceItem > ( 
 	    				daoProvider.get ( ).createDevices ( 
-	    						requestItem.getDeveloperId ( ), deviceGroupId, requestedDeviceCount ) );
+	    						requestItem.getDeveloperId ( ), groupId, requestedDeviceCount ) );
 		} catch ( IllegalArgumentException e ) {
 			throw new ApiException ( ErrorCode.InvalidInput, e.getMessage ( ) );
 		}

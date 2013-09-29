@@ -16,19 +16,19 @@ import com.lithouse.api.interceptor.BuildResponse;
 import com.lithouse.api.response.DataBean;
 import com.lithouse.api.util.RequestItem;
 import com.lithouse.api.util.RequestLogger;
-import com.lithouse.common.dao.DeviceGroupDao;
-import com.lithouse.common.model.DeviceGroupItem;
+import com.lithouse.common.dao.GroupDao;
+import com.lithouse.common.model.GroupItem;
 
 
-@Path ( ApiCallerConstants.Path.deviceGroups )
-public class DeviceGroupsResource extends BaseResource < DeviceGroupDao > {
+@Path ( ApiCallerConstants.Path.groups )
+public class GroupsResource extends BaseResource < GroupDao > {
 			
 	//private Provider < DeveloperResource > developerProvider; 
 	
 	@Inject	
-	public DeviceGroupsResource ( RequestItem requestItem,
+	public GroupsResource ( RequestItem requestItem,
 						    	  RequestLogger requestLogger,
-						    	  Provider < DeviceGroupDao > daoProvider ) {
+						    	  Provider < GroupDao > daoProvider ) {
 						    	//Provider < DeveloperResource > developerProvider ) {
 		super ( requestItem, requestLogger, daoProvider );
 		//this.developerProvider = developerProvider;		
@@ -37,10 +37,10 @@ public class DeviceGroupsResource extends BaseResource < DeviceGroupDao > {
 	@Authenticate
 	@GET 
 	@BuildResponse
-	public DataBean < DeviceGroupItem > getAllDeviceGroupsByDeveloperId ( ) {
+	public DataBean < GroupItem > getAllGroupsByDeveloperId ( ) {
 		logger.info ( "fetching groups by [developerId]::" + requestItem.getDeveloperId ( ) );
-		return new DataBean < DeviceGroupItem > ( 
-						daoProvider.get ( ).getAllDeviceGroups ( requestItem.getDeveloperId ( ) ) );
+		return new DataBean < GroupItem > ( 
+						daoProvider.get ( ).getAllGroups ( requestItem.getDeveloperId ( ) ) );
 	}  
 	
 //	@Authenticate
@@ -65,13 +65,13 @@ public class DeviceGroupsResource extends BaseResource < DeviceGroupDao > {
 	@Authenticate
 	@POST
 	@Consumes ( MediaType.APPLICATION_JSON )
-	public DeviceGroupItem createDeviceGroup ( DeviceGroupItem deviceGroupItem ) throws ApiException {				
-		deviceGroupItem.setDeveloperId ( requestItem.getDeveloperId ( ) );
-		logger.info ( "creating group " + deviceGroupItem.getGroupName ( ) 
+	public GroupItem createGroup ( GroupItem groupItem ) throws ApiException {				
+		groupItem.setDeveloperId ( requestItem.getDeveloperId ( ) );
+		logger.info ( "creating group " + groupItem.getGroupName ( ) 
 				+ " for [developerId]::" + requestItem.getDeveloperId ( ) );
 		
 		try { 
-			return daoProvider.get ( ).createDeviceGroup ( deviceGroupItem );
+			return daoProvider.get ( ).createGroup ( groupItem );
 		} catch ( IllegalArgumentException e ) {
 			throw new ApiException ( ErrorCode.InvalidInput, e. getMessage ( ) );
 		}

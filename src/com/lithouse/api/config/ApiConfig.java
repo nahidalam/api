@@ -20,11 +20,13 @@ import com.lithouse.api.interceptor.BuildResponse;
 import com.lithouse.api.interceptor.BuildResponseInterceptor;
 import com.lithouse.api.util.RequestItem;
 import com.lithouse.api.util.RequestLogger;
+import com.lithouse.common.dao.AppDao;
 import com.lithouse.common.dao.DeviceDao;
-import com.lithouse.common.dao.DeviceGroupDao;
+import com.lithouse.common.dao.GroupDao;
 import com.lithouse.common.dao.GenericDao;
+import com.lithouse.common.dao.impl.AppDaoImpl;
 import com.lithouse.common.dao.impl.DeviceDaoImpl;
-import com.lithouse.common.dao.impl.DeviceGroupDaoImpl;
+import com.lithouse.common.dao.impl.GroupDaoImpl;
 import com.lithouse.common.dao.impl.GenericDaoImpl;
 import com.sun.jersey.api.core.PackagesResourceConfig;
 import com.sun.jersey.guice.JerseyServletModule;
@@ -42,12 +44,15 @@ public class ApiConfig extends GuiceServletContextListener {
             	bind ( GenericDao.class )
         			.to ( GenericDaoImpl.class )
         			.in ( ServletScopes.REQUEST );
-            	bind ( DeviceGroupDao.class )
-    				.to ( DeviceGroupDaoImpl.class )
+            	bind ( GroupDao.class )
+    				.to ( GroupDaoImpl.class )
     				.in ( ServletScopes.REQUEST );
             	bind ( DeviceDao.class )
 					.to ( DeviceDaoImpl.class )
 					.in ( ServletScopes.REQUEST );
+            	bind ( AppDao.class )
+    				.to ( AppDaoImpl.class )
+    				.in ( ServletScopes.REQUEST );
             	
             	bind (ApiExceptionMapper.class );
                 
