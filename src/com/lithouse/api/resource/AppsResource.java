@@ -51,6 +51,7 @@ public class AppsResource extends BaseResource < AppDao > {
 	
 	@Authenticate
 	@POST
+	@BuildResponse
 	@Consumes ( MediaType.APPLICATION_JSON )
 	public AppItem createApp ( AppItem appItem ) throws ApiException {				
 		appItem.setDeveloperId ( requestItem.getDeveloperId ( ) );

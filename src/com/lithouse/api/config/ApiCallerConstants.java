@@ -14,7 +14,7 @@ public class ApiCallerConstants {
 	public class Path {
 		public static final String root = "/v1/*";
 		public static final String developers = "/developers";
-		public static final String devices = "/devices";
+		public static final String devices = "devices";
 		public static final String groups = "/groups";
 		public static final String apps = "/apps";
 		public static final String ping = "/ping";

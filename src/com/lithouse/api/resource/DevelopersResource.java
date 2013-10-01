@@ -14,6 +14,7 @@ import com.lithouse.api.config.ApiCallerConstants;
 import com.lithouse.api.exception.ApiException;
 import com.lithouse.api.exception.ApiException.ErrorCode;
 import com.lithouse.api.interceptor.Authenticate;
+import com.lithouse.api.interceptor.BuildResponse;
 import com.lithouse.api.util.RequestItem;
 import com.lithouse.api.util.RequestLogger;
 import com.lithouse.common.dao.GenericDao;
@@ -83,6 +84,7 @@ public class DevelopersResource extends BaseResource < GenericDao > {
 	
 	@Authenticate
 	@POST
+	@BuildResponse
 	@Consumes ( MediaType.APPLICATION_JSON )
 	public DeveloperItem createDeveloper ( DeveloperItem developer ) throws ApiException {
 		verifyAdmin ( );

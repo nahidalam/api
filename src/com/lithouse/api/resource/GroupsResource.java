@@ -23,15 +23,15 @@ import com.lithouse.common.model.GroupItem;
 @Path ( ApiCallerConstants.Path.groups )
 public class GroupsResource extends BaseResource < GroupDao > {
 			
-	//private Provider < DeveloperResource > developerProvider; 
+	private Provider < DevicesResource > devicesProvider; 
 	
 	@Inject	
 	public GroupsResource ( RequestItem requestItem,
-						    	  RequestLogger requestLogger,
-						    	  Provider < GroupDao > daoProvider ) {
-						    	//Provider < DeveloperResource > developerProvider ) {
+				    	    RequestLogger requestLogger,
+				    	    Provider < GroupDao > daoProvider,
+				    	    Provider < DevicesResource > devicesProvider ) {
 		super ( requestItem, requestLogger, daoProvider );
-		//this.developerProvider = developerProvider;		
+		this.devicesProvider = devicesProvider;		
 	}
 	
 	@Authenticate
@@ -43,27 +43,15 @@ public class GroupsResource extends BaseResource < GroupDao > {
 						daoProvider.get ( ).getAllGroups ( requestItem.getDeveloperId ( ) ) );
 	}  
 	
-//	@Authenticate
-//	@Path ( "/{" + ApiCallerConstants.PathParameters.developerId + "}" )	
-//	public DeveloperResource getDeveloperResource ( 
-//								@PathParam ( ApiCallerConstants.PathParameters.developerId ) 
-//								String developerId ) throws ApiException {
-//		
-//		verifyAdmin ( );
-//		
-//		if ( developerId == null || developerId.isEmpty ( ) ) {
-//			throw new ApiException ( ErrorCode.InvalidInput,
-//				 		Arrays.asList ( ApiCallerConstants.PathParameters.developerId ) );
-//		}
-//		
-//		logger.info ( "[developerId]::" + developerId );
-//		requestItem.setDeveloperId ( developerId );
-//		
-//	    return developerProvider.get ( );
-//	}
+	@Authenticate
+	@Path ( "/{" + ApiCallerConstants.PathParameters.groupId + "}/" + ApiCallerConstants.Path.devices )	
+	public DevicesResource getDevicesResource ( ) throws ApiException {
+	    return devicesProvider.get ( );
+	}
 	
 	@Authenticate
 	@POST
+	@BuildResponse
 	@Consumes ( MediaType.APPLICATION_JSON )
 	public GroupItem createGroup ( GroupItem groupItem ) throws ApiException {				
 		groupItem.setDeveloperId ( requestItem.getDeveloperId ( ) );
